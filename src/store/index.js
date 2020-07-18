@@ -137,11 +137,15 @@ export default new Vuex.Store({
       .then((accept) => {
         // Saves info into state and hide spinner
         let data = accept.data.photos
-        dispatch('setRoverResult', data)
+        if(data.length!=0){
+          dispatch('setRoverResult', data)
+          data.forEach(element => 
+            commit('ADD_COUNTER', element)
+          )
+        } else{
+          dispatch('setRoverResult', false)
+        }
         commit('HIDE_LOADING')
-        data.forEach(element => 
-          commit('ADD_COUNTER', element)
-        )
       })
     },
     // Saves Rover Search result

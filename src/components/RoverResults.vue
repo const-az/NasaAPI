@@ -4,10 +4,10 @@
     <v-overlay absolute :value="loading" opacity="0" class="my-10 py-5">
       <v-progress-circular indeterminate color="blue-grey darken-3" size="64"></v-progress-circular>
     </v-overlay>
-    <div v-if="roverResult.length==0">
+    <div v-if="roverResult==false">
       <p class="text-medium text-h5">No se encontraron resultados. Intente nuevamente.</p>
     </div>
-    <div v-else>
+    <div v-if="roverResult!=0 && !!roverResult">
       <p class="mb-0">Cantidad de fotos según cámara:</p>
       <span class="text-caption mx-5" v-for="(camera, index) in counter" :key="index">{{camera.name}}: {{camera.total}}</span>
       <v-divider class="mt-5"></v-divider>

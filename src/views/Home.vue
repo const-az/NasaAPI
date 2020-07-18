@@ -1,7 +1,11 @@
 <template>
   <v-main>
-    <v-img height="100vh" :src="homeImg">
-      <login-form></login-form>
+    <v-img height="100vh" :src="homeImg" class="white--text text-center align-center">
+      <login-form v-if="!currentUser"></login-form>
+      <div v-else class="mb-15">
+        <p class="text-h4 text-md-h2 font-weight-medium">¡Bienvenidos!</p>
+        <p>Descubre las últimas imágenes de las expediciones de la NASA</p>
+      </div>
     </v-img>
   </v-main>
 </template>
@@ -16,6 +20,6 @@ export default {
   components: {
     LoginForm
   },
-  computed: mapState(['homeImg'])
+  computed: mapState(['homeImg', 'currentUser'])
 }
 </script>

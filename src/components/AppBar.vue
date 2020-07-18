@@ -91,7 +91,7 @@ export default {
     logout(){
       Firebase.auth().signOut().then( () => {
         this.updateUser(false)
-        this.$router.push('/')
+        this.$router.push('/home')
       })
     },
     ...mapActions(['updateUser'])
@@ -102,7 +102,7 @@ export default {
   // Checks on routes to change appbar colors depending on them
   watch: {
     '$route' (){
-      if(this.$route.path == '/'){
+      if(this.$route.path == '/' || this.$route.path == '/home'){
         // Changes appbar color to transparent
         this.onHome = true
       } else{

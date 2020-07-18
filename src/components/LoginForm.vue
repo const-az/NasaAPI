@@ -1,5 +1,5 @@
 <template>
-  <v-main class="pt-15">
+  <v-main>
     <!-- Alert on errors and success -->
     <v-snackbar elevation="0" top color="blue-grey darken-3" v-model="alert.state" timeout="3000">
       {{ alert.text }}
@@ -84,20 +84,15 @@ export default {
           .then(() => {
             let user = this.credentials.email;
             this.updateUser(user);
-            // Welcome alert
-            this.alert.state = true;
-            this.alert.text = `Bienvenida, ${user}`;
-            // Redirect to adding products form
-            setTimeout(() => {
-              this.$router.push("/apod");
-            }, 2000);
+            // Redirect to APOD view
+            this.$router.push("/apod");
           })
           // Error alert
           .catch(error => {
             this.alert.state = true;
             // If user is not registered
             if(error.code == "auth/user-not-found"){
-              this.alert.text = "Usuario no encontrado, ¡regístrate!";
+              this.alert.text = "Usuario no encontrado.";
             // If credentials arent valid
             } else{
               this.alert.text = "Usuario o contraseña incorrectos. Intente nuevamente.";

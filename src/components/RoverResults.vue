@@ -7,7 +7,7 @@
     <div v-if="roverResult.length==0">
       <p class="text-medium text-h5">No se encontraron resultados. Intente nuevamente.</p>
     </div>
-    <div v-if="!!roverResult">
+    <div v-else>
       <p class="mb-0">Cantidad de fotos según cámara:</p>
       <span class="text-caption mx-5" v-for="(camera, index) in counter" :key="index">{{camera.name}}: {{camera.total}}</span>
       <v-divider class="mt-5"></v-divider>

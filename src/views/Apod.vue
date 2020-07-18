@@ -4,6 +4,7 @@
       <v-col cols="12" md="4" class="text-end">
         <!-- Calendar on large devices -->
         <v-date-picker
+          :max="today"
           @dblclick:date="setDate"
           color="blue-grey darken-3"
           v-model="date"
@@ -12,6 +13,7 @@
         ></v-date-picker>
         <!-- Calendar on small devices -->
         <v-date-picker
+          :max="today"
           @dblclick:date="setDate"
           color="blue-grey darken-3"
           v-model="date"
@@ -51,6 +53,7 @@ export default {
   data: () => ({
     date: new Date().toISOString().substr(0, 10),
     done: [false, false, false],
+    today: ''
   }),
   methods: {
     setDate(date){
@@ -62,6 +65,7 @@ export default {
   computed: mapState(['apodResult']),
   created(){
     this.setApodResult(null)
+    this.today = this.date
   }
 }
 </script>

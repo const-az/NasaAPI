@@ -58,7 +58,6 @@ export default new Vuex.Store({
       .then((accept) => {
         // Saves info into state and hide spinner
         let data = accept.data
-        console.log(data)
         dispatch('setApodResult', data)
         commit('HIDE_LOADING')
       })

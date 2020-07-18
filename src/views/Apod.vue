@@ -39,6 +39,10 @@
             <v-card-title class="">{{apodResult.title}}</v-card-title>
             <v-card-subtitle>{{apodResult.copyright}} | {{apodResult.date}}</v-card-subtitle>
             <v-card-text>{{apodResult.explanation}}</v-card-text>
+            <!-- Loading -->
+            <v-overlay absolute :value="loading" opacity="0" class="my-10 py-5">
+              <v-progress-circular indeterminate color="blue-grey darken-3" size="64"></v-progress-circular>
+            </v-overlay>
           </div>
         </v-card>
       </v-col>
@@ -62,7 +66,7 @@ export default {
     },
     ...mapActions(['getApod','setApodResult'])
   },
-  computed: mapState(['apodResult']),
+  computed: mapState(['apodResult', 'loading']),
   created(){
     this.setApodResult(null)
     this.today = this.date

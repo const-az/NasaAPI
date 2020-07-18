@@ -29,7 +29,18 @@ export default new Vuex.Store({
       sol: null,
       camera: ''
     },
-    roverResult: {}
+    roverResult: null,
+    counter: [
+      { name: 'FHAZ', total: 0 },
+      { name: 'RHAZ', total: 0 },
+      { name: 'MAST', total: 0 },
+      { name: 'CHEMCAM', total: 0 },
+      { name: 'MAHLI', total: 0 },
+      { name: 'MARDI', total: 0 },
+      { name: 'NAVCAM', total: 0 },
+      { name: 'PANCAM', total: 0 },
+      { name: 'MINITES', total: 0 },
+    ]
   },
   mutations: {
     // Toggles loading state
@@ -55,6 +66,10 @@ export default new Vuex.Store({
     },
     SET_ROVER(state, rover){
       state.roverResult = rover
+    },
+    ADD_COUNTER(state, p){
+      let counter = state.counter.find(x => x.name == p.camera.name)
+      counter.total++
     }
   },
   actions: {
@@ -91,6 +106,9 @@ export default new Vuex.Store({
     // Sets Rover camera
     updateRoverCamera({commit}, camera){
       let lowerCamera = camera.toLowerCase()
+      if(camera=='Todas'){
+        lowerCamera = ''
+      }
       commit('UPDATE_ROVER_CAMERA', lowerCamera)
     },
     // Gets all plays from Firebase
@@ -103,9 +121,12 @@ export default new Vuex.Store({
       axios.get(`${baseURL}/mars-photos/api/v1/rovers/curiosity/photos?sol=${state.roverSearch.sol}${camera}&${apiKey}`)
       .then((accept) => {
         // Saves info into state and hide spinner
-        let data = accept.data
+        let data = accept.data.photos
         dispatch('setRoverResult', data)
         commit('HIDE_LOADING')
+        data.forEach(element => 
+          commit('ADD_COUNTER', element)
+        )
       })
     },
     // Saves Rover Search result

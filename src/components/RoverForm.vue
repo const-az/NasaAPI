@@ -34,7 +34,7 @@
 import { mapState, mapActions } from 'vuex'
 export default {
   data: () => ({
-    cameras: ['FHAZ','RHAZ','MAST','CHECKCAM','MAHLI','MARDI','NAVCAM','PANCAM','MINITES'],
+    cameras: ['Todas','FHAZ','RHAZ','MAST','CHECKCAM','MAHLI','MARDI','NAVCAM','PANCAM','MINITES'],
     select: null,
     rules: [
       v => !!v || '* Este campo es obligatorio',

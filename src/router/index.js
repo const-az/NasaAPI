@@ -27,6 +27,11 @@ Vue.use(VueRouter)
     meta: {
       login: true
     }
+  },
+  {
+    path: '*',
+    name: 'NotFound',
+    component: () => import(/* webpackChunkName: "rover" */ '../views/NotFound.vue'),
   }
 ]
 

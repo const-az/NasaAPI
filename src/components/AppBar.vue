@@ -9,14 +9,8 @@
       <v-spacer></v-spacer>
       <!-- Menu on large devices -->
       <div class="d-none d-md-flex">
-        <!-- If it's not logged in -->
-        <div v-if="!currentUser" class="my-auto">
-          <v-btn rounded small text to="/">
-            Ingresa
-          </v-btn>
-        </div>
         <!-- If it's logged in -->
-        <div v-else class="my-auto">
+        <div v-if="currentUser" class="my-auto">
           <!-- Apod page -->
           <v-btn rounded small text to="/apod">
             APOD
@@ -32,7 +26,7 @@
         </div>
       </div>
       <!-- Menu on small devices -->
-      <v-menu rounded> 
+      <v-menu rounded v-if="currentUser"> 
         <!-- Button activator  -->
         <template v-slot:activator="{ attrs, on }">
           <v-btn class="d-md-none white--text" icon v-bind="attrs" v-on="on" depressed>
@@ -41,17 +35,8 @@
         </template>
         <!-- Dropdown list items -->
         <v-list flat elevation="0">
-          <!-- Only if it's not logged in -->
-          <div v-if="!currentUser">
-            <!-- Log in -->
-            <v-list-item link to="/">
-              <v-list-item-title>
-                Ingresa
-              </v-list-item-title>
-            </v-list-item>
-          </div>
           <!-- Only if it's logged in -->
-          <div v-else>
+          <div>
             <!-- Apod page -->
             <v-list-item link to="/apod">
               <v-list-item-title>

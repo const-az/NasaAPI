@@ -24,7 +24,12 @@ export default new Vuex.Store({
     loading: false,
     currentUser: getFromStorage('user') || undefined,
     homeImg: 'https://apod.nasa.gov/apod/image/2007/NEOWISEBelowBigDipper-7-16-2020-TomMasterson1081.jpg',
-    apodResult: null
+    apodResult: null,
+    roverSearch: {
+      sol: null,
+      camera: ''
+    },
+    roverResult: {}
   },
   mutations: {
     // Toggles loading state
@@ -35,9 +40,21 @@ export default new Vuex.Store({
       state.currentUser = user
       setInStorage('user', user)
     },
-    // Saves apod result
+    // Saves APOD result
     SET_APOD(state, apod){
       state.apodResult = apod
+    },
+    // Sets Rover search
+    // Sets Martian sol
+    UPDATE_ROVER_SOL(state, sol){
+      state.roverSearch.sol = sol
+    },
+    // Sets Rover camera
+    UPDATE_ROVER_CAMERA(state, camera){
+      state.roverSearch.camera = camera
+    },
+    SET_ROVER(state, rover){
+      state.roverResult = rover
     }
   },
   actions: {
@@ -62,9 +79,39 @@ export default new Vuex.Store({
         commit('HIDE_LOADING')
       })
     },
+    // Saves APOD result
     setApodResult({commit}, data){
       commit('SET_APOD', data)
-    }
+    },
+    // Sets Rover search
+    // Sets Martian sol
+    updateRoverSol({commit}, sol){
+      commit('UPDATE_ROVER_SOL', sol)
+    },
+    // Sets Rover camera
+    updateRoverCamera({commit}, camera){
+      let lowerCamera = camera.toLowerCase()
+      commit('UPDATE_ROVER_CAMERA', lowerCamera)
+    },
+    // Gets all plays from Firebase
+    getRover({commit, dispatch, state}){
+      // Displays loading spinner while getting items
+      commit('SHOW_LOADING')
+      // Sets camera value depeding on content
+      let camera = state.roverSearch.camera ? `&camera=${state.roverSearch.camera}` : ''
+      // Gets pictures from Api
+      axios.get(`${baseURL}/mars-photos/api/v1/rovers/curiosity/photos?sol=${state.roverSearch.sol}${camera}&${apiKey}`)
+      .then((accept) => {
+        // Saves info into state and hide spinner
+        let data = accept.data
+        dispatch('setRoverResult', data)
+        commit('HIDE_LOADING')
+      })
+    },
+    // Saves Rover Search result
+    setRoverResult({commit}, data){
+      commit('SET_ROVER', data)
+    },
   },
   getters: {
     // Gets log-in state from storage

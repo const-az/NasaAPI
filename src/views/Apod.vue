@@ -3,23 +3,14 @@
     <v-row>
       <v-col cols="12" md="4" class="text-end">
         <!-- Calendar on large devices -->
-        <v-date-picker
-          :max="today"
-          @dblclick:date="setDate"
-          color="blue-grey darken-3"
-          v-model="date"
-          max-width="290"
-          class="mt-4 d-none d-md-block"
+        <v-date-picker 
+          :max="today" @dblclick:date="setDate" v-model="date"
+          max-width="290" color="blue-grey darken-3" class="mt-4 d-none d-md-block"
         ></v-date-picker>
         <!-- Calendar on small devices -->
         <v-date-picker
-          :max="today"
-          @dblclick:date="setDate"
-          color="blue-grey darken-3"
-          v-model="date"
-          full-width
-          :landscape="$vuetify.breakpoint.smAndUp"
-          class="mt-4 d-md-none"
+          :max="today" @dblclick:date="setDate" v-model="date"
+          color="blue-grey darken-3" full-width :landscape="$vuetify.breakpoint.smAndUp" class="mt-4 d-md-none"
         ></v-date-picker>
         <v-btn small depressed dark color="blue-grey darken-3" @click="setDate(date)">Buscar</v-btn>
         <v-divider class="mt-15 mb-8 d-md-none"></v-divider>

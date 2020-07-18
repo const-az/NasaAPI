@@ -1,6 +1,6 @@
 <template>
   <v-main>
-    <!-- Alert on errors and success -->
+    <!-- Alert on errors -->
     <v-snackbar elevation="0" top color="blue-grey darken-3" v-model="alert.state" timeout="3000">
       {{ alert.text }}
       <template v-slot:action="{ attrs }">
@@ -69,7 +69,6 @@ export default {
     alert: {
       text: "",
       state: false,
-      type: ""
     }
   }),
   methods: {

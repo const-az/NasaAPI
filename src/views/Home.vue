@@ -1,18 +1,21 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <v-main>
+    <v-img height="100vh" :src="homeImg">
+      <login-form></login-form>
+    </v-img>
+  </v-main>
 </template>
 
 <script>
+import { mapState } from 'vuex'
+import LoginForm from '../components/LoginForm'
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
 
 export default {
   name: 'Home',
   components: {
-    HelloWorld
-  }
+    LoginForm
+  },
+  computed: mapState(['homeImg'])
 }
 </script>

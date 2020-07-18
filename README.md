@@ -1,24 +1,46 @@
-# nasa_app
+# NASAapi
 
 ## Project setup
+
+1. Root folder
 ```
 npm install
 ```
+---
 
-### Compiles and hot-reloads for development
+2. Firebase config
+
 ```
-npm run serve
+mkdir config
+touch firebase.js
+```
+Inside firebase.js, paste your own Firebase SDK snippet.
+
+---
+
+3. Firebase functions folder
+
+```
+cd functions
+npm install
 ```
 
-### Compiles and minifies for production
-```
-npm run build
-```
+---
+NPM commands
 
-### Lints and fixes files
-```
-npm run lint
-```
+* `npm run serve` - hot-reloads for development.
+* `npm run build` - minifies for production.
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+Firebase commands
+
+* `firebase init` - to initialize firebase on your project.
+* `firebase deploy --only hosting` - to upload to Firebase hosting.
+
+---
+
+This project was built with Vuetify and Firebase Authentication and Hosting
+ 
+You can see it running here: [https://nasa-app-ede36.web.app](https://nasa-app-ede36.web.app)
+
+---
+July 2020.

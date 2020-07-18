@@ -24,11 +24,13 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
 export default {
-  computed: {
-    ...mapState(['roverResult','loading','counter']),
+  computed: mapState(['roverResult','loading','counter']),
+  methods: mapActions(['setRoverResult']),
+  created(){
+    this.setRoverResult(null)
   }
 }
 </script>

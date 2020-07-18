@@ -18,17 +18,6 @@ function getFromStorage(key) {
 const baseURL = 'https://api.nasa.gov'
 const apiKey = 'api_key=Icy2uZKFNzefDVvJDYFdzZvNJfNhzI1dIrlTZc1p'
 
-const defaultCounter = [
-  { name: 'FHAZ', total: 0 },
-  { name: 'RHAZ', total: 0 },
-  { name: 'MAST', total: 0 },
-  { name: 'CHEMCAM', total: 0 },
-  { name: 'MAHLI', total: 0 },
-  { name: 'MARDI', total: 0 },
-  { name: 'NAVCAM', total: 0 },
-  { name: 'PANCAM', total: 0 },
-  { name: 'MINITES', total: 0 },
-]
 
 export default new Vuex.Store({
   state: {
@@ -81,9 +70,6 @@ export default new Vuex.Store({
     ADD_COUNTER(state, p){
       let counter = state.counter.find(x => x.name == p.camera.name)
       counter.total++
-    },
-    RESET_COUNTER(state){
-      state.counter = defaultCounter
     }
   },
   actions: {
@@ -127,7 +113,6 @@ export default new Vuex.Store({
     },
     // Gets all plays from Firebase
     getRover({commit, dispatch, state}){
-      commit('RESET_COUNTER')
       // Displays loading spinner while getting items
       commit('SHOW_LOADING')
       // Sets camera value depeding on content

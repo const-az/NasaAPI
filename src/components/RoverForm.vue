@@ -1,6 +1,6 @@
 <template>
   <v-main class="mt-15 text-center">
-    <p class="font-weight-medium text-h5 mb-0">¡Revisa fotografías de Marte!</p>
+    <p class="font-weight-medium text-h5 text-md-h4 mb-0">¡Revisa fotografías de Marte!</p>
     <p class="text-body-2">Selecciona el día y la cámara para tu búsqueda.</p>
     <v-container>
       <v-row class="align-center">
@@ -16,7 +16,7 @@
         </v-col>
       </v-row>
     </v-container>
-    <v-divider class="mb-8"></v-divider>
+    <v-divider></v-divider>
     <!-- Alert on errors -->
     <v-snackbar elevation="0" top color="blue-grey darken-3" v-model="alert.state" timeout="3000">
       {{ alert.text }}

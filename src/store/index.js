@@ -40,17 +40,7 @@ export default new Vuex.Store({
       camera: ''
     },
     roverResult: null,
-    counter: [
-      { name: 'FHAZ', total: 0 },
-      { name: 'RHAZ', total: 0 },
-      { name: 'MAST', total: 0 },
-      { name: 'CHEMCAM', total: 0 },
-      { name: 'MAHLI', total: 0 },
-      { name: 'MARDI', total: 0 },
-      { name: 'NAVCAM', total: 0 },
-      { name: 'PANCAM', total: 0 },
-      { name: 'MINITES', total: 0 },
-    ]
+    counter: []
   },
   mutations: {
     // Toggles loading state
@@ -70,10 +60,17 @@ export default new Vuex.Store({
     UPDATE_ROVER_CAMERA(state, camera){ state.roverSearch.camera = camera },
     // Saves data result in state
     SET_ROVER(state, rover){ state.roverResult = rover },
+    // Resets counter
+    RESET_COUNTER(state){ state.counter = [] },
     // Count every camera name for each object in Rover result
     ADD_COUNTER(state, p){
-      let counter = state.counter.find(x => x.name == p.camera.name)
-      counter.total++
+      let targetCounter = state.counter.find(x => x.name == p.camera.name)
+      if(targetCounter==undefined){
+        let obj = { name: p.camera.name, total: 1}
+        state.counter.push(obj)
+      }else{
+        targetCounter.total++
+      }
     },
     // Saves APOD for Home Page
     SET_HOME_IMAGE(state, img){ state.homeImg = img },
@@ -117,7 +114,7 @@ export default new Vuex.Store({
     },
     // Saves APOD result
     setApodResult({commit}, data){ commit('SET_APOD', data) },
-    // Sets Rover search
+    // Rover search
     // Sets Martian sol
     updateRoverSol({commit}, sol){ commit('UPDATE_ROVER_SOL', sol) },
     // Sets Rover camera
@@ -132,6 +129,8 @@ export default new Vuex.Store({
     getRover({commit, dispatch, state}){
       // Displays loading spinner while getting items
       commit('SHOW_LOADING')
+      // Resets state counter
+      commit('RESET_COUNTER')
       // Sets camera value depeding on content
       let camera = state.roverSearch.camera ? `&camera=${state.roverSearch.camera}` : ''
       // Gets pictures from Api

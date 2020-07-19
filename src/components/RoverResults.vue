@@ -2,7 +2,7 @@
   <v-main class="text-center">
     <!-- Loading -->
     <v-overlay absolute :value="loading" opacity="0" class="my-10 py-5">
-      <v-progress-circular indeterminate color="blue-grey darken-3" size="64"></v-progress-circular>
+      <v-progress-circular indeterminate color="indigo darken-3" size="64"></v-progress-circular>
     </v-overlay>
     <!-- No results message -->
     <div v-if="roverResult==false && !loading">

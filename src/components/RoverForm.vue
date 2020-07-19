@@ -5,20 +5,20 @@
     <v-container>
       <v-row class="align-center">
         <v-col cols='12' md="5">
-          <v-text-field :rules="rules" :value="roverSearch.sol" @input="updateRoverSol" color="blue-grey darken-3" label="SOL" hint="Ingresa un valor numérico."></v-text-field>
+          <v-text-field :rules="rules" :value="roverSearch.sol" @input="updateRoverSol" color="indigo darken-3" label="SOL" hint="Ingresa un valor numérico."></v-text-field>
         </v-col>
         <v-col cols='12' md="5">
-          <v-select :value="roverSearch.camera" @input="updateRoverCamera" cols='12' md="6" v-model="select" :items="cameras" label="Cámaras" color="blue-grey darken-3"
+          <v-select :value="roverSearch.camera" @input="updateRoverCamera" cols='12' md="6" v-model="select" :items="cameras" label="Cámaras" color="indigo darken-3"
           ></v-select>
         </v-col>
         <v-col cols="12" md="2">
-          <v-btn small depressed dark color="blue-grey darken-3" @click="searchRover">Buscar</v-btn>
+          <v-btn small depressed dark color="indigo darken-3" @click="searchRover">Buscar</v-btn>
         </v-col>
       </v-row>
     </v-container>
     <v-divider></v-divider>
     <!-- Alert on errors -->
-    <v-snackbar elevation="0" top color="blue-grey darken-3" v-model="alert.state" timeout="3000">
+    <v-snackbar elevation="0" top color="red" v-model="alert.state" timeout="3000">
       {{ alert.text }}
       <template v-slot:action="{ attrs }">
         <!-- To close alert -->

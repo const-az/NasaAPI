@@ -5,14 +5,14 @@
         <!-- Calendar on large devices -->
         <v-date-picker 
           :max="today" @dblclick:date="setDate" v-model="date"
-          max-width="290" color="blue-grey darken-3" class="mt-4 d-none d-md-block"
+          max-width="290" color="indigo darken-3" class="mt-4 d-none d-md-block"
         ></v-date-picker>
         <!-- Calendar on small devices -->
         <v-date-picker
           :max="today" @dblclick:date="setDate" v-model="date"
-          color="blue-grey darken-3" full-width :landscape="$vuetify.breakpoint.smAndUp" class="mt-4 d-md-none"
+          color="indigo darken-3" full-width :landscape="$vuetify.breakpoint.smAndUp" class="mt-4 d-md-none"
         ></v-date-picker>
-        <v-btn small depressed dark color="blue-grey darken-3" @click="setDate(date)">Buscar</v-btn>
+        <v-btn small depressed dark color="indigo darken-3" @click="setDate(date)">Buscar</v-btn>
         <v-divider class="mt-15 mb-8 d-md-none"></v-divider>
       </v-col>
       <v-col cols="12" md="8">
@@ -34,7 +34,7 @@
             <v-card-text>{{apodResult.explanation}}</v-card-text>
             <!-- Loading -->
             <v-overlay absolute :value="loading" opacity="0" class="my-10 py-5">
-              <v-progress-circular indeterminate color="blue-grey darken-3" size="64"></v-progress-circular>
+              <v-progress-circular indeterminate color="indigo darken-3" size="64"></v-progress-circular>
             </v-overlay>
           </div>
         </v-card>

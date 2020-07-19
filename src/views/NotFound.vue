@@ -4,7 +4,7 @@
       <div class="mb-15">
         <p class="text-h4 text-md-h2 font-weight-medium">¡Ups!</p>
         <p>La página que buscas no existe</p>
-        <v-btn small depressed dark color="blue-grey darken-3" to="/">Volver al home</v-btn>
+        <v-btn small depressed dark color="indigo darken-3" to="/">Volver al home</v-btn>
       </div>
     </v-img>
   </v-main>

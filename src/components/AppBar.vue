@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-app-bar :color="onHome ? 'transparent' : 'blue-grey darken-3'" absolute dense dark flat>
+    <v-app-bar :color="onHome ? 'transparent' : 'indigo darken-3'" absolute dense dark flat>
       <!-- Brand name, redirects to home -->
       <router-link to="/" class="text-decoration-none white--text">
         <!-- On any page -->
@@ -12,21 +12,21 @@
         <!-- If it's logged in -->
         <div v-if="currentUser" class="my-auto">
           <!-- Apod page -->
-          <v-btn rounded small text to="/apod">
+          <v-btn small text to="/apod">
             APOD
           </v-btn>
           <!-- Rover page -->
-          <v-btn rounded small text to="/rover">
+          <v-btn small text to="/rover">
             ROVER
           </v-btn>
           <!-- Logout -->
-          <v-btn rounded small text @click="logout">
+          <v-btn small text @click="logout">
             Cerrar sesión
           </v-btn>
         </div>
       </div>
       <!-- Menu on small devices -->
-      <v-menu rounded v-if="currentUser"> 
+      <v-menu v-if="currentUser"> 
         <!-- Button activator  -->
         <template v-slot:activator="{ attrs, on }">
           <v-btn class="d-md-none white--text" icon v-bind="attrs" v-on="on" depressed>

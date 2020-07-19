@@ -18,12 +18,14 @@ function getFromStorage(key) {
 const baseURL = 'https://api.nasa.gov'
 const apiKey = 'api_key=Icy2uZKFNzefDVvJDYFdzZvNJfNhzI1dIrlTZc1p'
 
-
 export default new Vuex.Store({
   state: {
     loading: false,
     currentUser: getFromStorage('user') || undefined,
-    homeImg: 'https://apod.nasa.gov/apod/image/2007/NEOWISEBelowBigDipper-7-16-2020-TomMasterson1081.jpg',
+    homeImg: {
+      // Default img url
+      url: 'https://apod.nasa.gov/apod/image/2007/NEOWISEBelowBigDipper-7-16-2020-TomMasterson1081.jpg'
+    },
     apodResult: null,
     roverSearch: {
       sol: null,
@@ -52,24 +54,21 @@ export default new Vuex.Store({
       setInStorage('user', user)
     },
     // Saves APOD result
-    SET_APOD(state, apod){
-      state.apodResult = apod
-    },
+    SET_APOD(state, apod){ state.apodResult = apod },
     // Sets Rover search
     // Sets Martian sol
-    UPDATE_ROVER_SOL(state, sol){
-      state.roverSearch.sol = sol
-    },
+    UPDATE_ROVER_SOL(state, sol){ state.roverSearch.sol = sol},
     // Sets Rover camera
-    UPDATE_ROVER_CAMERA(state, camera){
-      state.roverSearch.camera = camera
-    },
-    SET_ROVER(state, rover){
-      state.roverResult = rover
-    },
+    UPDATE_ROVER_CAMERA(state, camera){ state.roverSearch.camera = camera },
+    // Saves data result in state
+    SET_ROVER(state, rover){ state.roverResult = rover },
+    // Count every camera name for each object in Rover result
     ADD_COUNTER(state, p){
       let counter = state.counter.find(x => x.name == p.camera.name)
       counter.total++
+    },
+    SET_HOME_IMAGE(state, img){
+      state.homeImg = img
     }
   },
   actions: {
@@ -82,11 +81,23 @@ export default new Vuex.Store({
         } catch(e) { reject(e) }
       })
     },
+    getHomeImage({commit}){
+      // Sets date to today
+      let today = new Date().toISOString().substr(0, 10)
+      axios.get(`${baseURL}/planetary/apod?${apiKey}&date=${today}`)
+      .then((accept) => {
+        // Saves info into state only if data is a image
+        let data = accept.data
+        if(data.media_type == 'image'){
+          commit('SET_HOME_IMAGE', data)
+        }
+      })
+    },
     // Gets all plays from Firebase
     getApod({commit, dispatch}, date){
       // Displays loading spinner while getting items
       commit('SHOW_LOADING')
-      axios.get(`${baseURL}/planetary/apod?${apiKey}&date=${date}`, { headers: { "Content-type": "text/plain"}})
+      axios.get(`${baseURL}/planetary/apod?${apiKey}&date=${date}`)
       .then((accept) => {
         // Saves info into state and hide spinner
         let data = accept.data
@@ -95,14 +106,10 @@ export default new Vuex.Store({
       })
     },
     // Saves APOD result
-    setApodResult({commit}, data){
-      commit('SET_APOD', data)
-    },
+    setApodResult({commit}, data){ commit('SET_APOD', data) },
     // Sets Rover search
     // Sets Martian sol
-    updateRoverSol({commit}, sol){
-      commit('UPDATE_ROVER_SOL', sol)
-    },
+    updateRoverSol({commit}, sol){ commit('UPDATE_ROVER_SOL', sol) },
     // Sets Rover camera
     updateRoverCamera({commit}, camera){
       let lowerCamera = camera.toLowerCase()
@@ -120,28 +127,24 @@ export default new Vuex.Store({
       // Gets pictures from Api
       axios.get(`${baseURL}/mars-photos/api/v1/rovers/curiosity/photos?sol=${state.roverSearch.sol}${camera}&${apiKey}`)
       .then((accept) => {
-        // Saves info into state and hide spinner
+        // Saves info into state
         let data = accept.data.photos
+        // if data has information
         if(data.length!=0){
           dispatch('setRoverResult', data)
+          // Counts camera name for each result
           data.forEach(element => 
             commit('ADD_COUNTER', element)
           )
         } else{
+          // if data is an empty array
           dispatch('setRoverResult', false)
         }
+        // Hide spinner
         commit('HIDE_LOADING')
       })
     },
     // Saves Rover Search result
-    setRoverResult({commit}, data){
-      commit('SET_ROVER', data)
-    },
+    setRoverResult({commit}, data){ commit('SET_ROVER', data) },
   },
-  getters: {
-    // Gets log-in state from storage
-    isLoggedIn: state => !!state.currentUser,
-    // Gets current logged-in user from storage 
-    currentUser: state => state.currentUser,
-  }
 })

@@ -1,6 +1,6 @@
 <template>
   <v-main>
-    <v-img height="100vh" :src="homeImg" class="white--text text-center align-center">
+    <v-img height="100vh" :src="homeImg.url" class="white--text text-center align-center">
       <!-- If isn't loggedin -->
       <login-form v-if="!currentUser"></login-form>
       <!-- Else -->
@@ -9,11 +9,14 @@
         <p>Descubre las últimas imágenes de las expediciones de la NASA</p>
       </div>
     </v-img>
+    <v-footer absolute color="transparent" v-if="!!homeImg.title">
+      <p class="ml-auto text-caption text-right white--text">Foto del día: <span class="font-weight-bold">{{homeImg.title}}</span> | {{homeImg.copyright}}</p>
+    </v-footer>
   </v-main>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 import LoginForm from '../components/LoginForm'
 
 export default {
@@ -21,6 +24,11 @@ export default {
   components: {
     LoginForm
   },
-  computed: mapState(['homeImg', 'currentUser'])
+  computed: mapState(['homeImg', 'currentUser']),
+  methods: mapActions(['getApod','getHomeImage']),
+  created(){
+    this.getHomeImage()
+  }
+  
 }
 </script>

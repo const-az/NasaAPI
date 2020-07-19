@@ -11,10 +11,10 @@
       </template>
     </v-snackbar>
     <!-- Login card -->
-    <v-card flat max-width="320" class="text-center rounded-xl mx-auto mt-16 pa-2">
+    <v-card flat max-width="320" class="text-center rounded-lg mx-auto pa-2">
       <v-card-text>
         <p class="text-h4 text-md-h3 mb-0 font-weight-medium blue-grey--text text--darken-3">¡Bienvenido!</p>
-        <p class="text-h6 text-md-h5 mb-2">Ingresa</p>
+        <p class="text-h6 text-md-h6 mb-2">Ingresa tus datos</p>
       </v-card-text>
       <!-- Log-in form -->
       <v-card-text>
@@ -38,15 +38,7 @@
       </v-card-text>
       <!-- Send form -->
       <v-card-actions>
-        <v-btn
-          depressed
-          rounded
-          small
-          dark
-          class="mx-auto mt-5 px-3"
-          color="blue-grey darken-3"
-          @click="login"
-        >Iniciar sesión</v-btn>
+        <v-btn depressed small dark class="mx-auto mt-5 px-3" color="blue-grey darken-3" @click="login">Iniciar sesión</v-btn>
       </v-card-actions>
     </v-card>
   </v-main>

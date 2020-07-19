@@ -21,12 +21,20 @@ const apiKey = 'api_key=Icy2uZKFNzefDVvJDYFdzZvNJfNhzI1dIrlTZc1p'
 export default new Vuex.Store({
   state: {
     loading: false,
+    // User
     currentUser: getFromStorage('user') || undefined,
+    // Home data
     homeImg: {
       // Default img url
-      url: 'https://apod.nasa.gov/apod/image/2007/NEOWISEBelowBigDipper-7-16-2020-TomMasterson1081.jpg'
+      url: 'https://apod.nasa.gov/apod/image/2007/NEOWISEBelowBigDipper-7-16-2020-TomMasterson1081.jpg',
+      title: 'Finding NEOWISE',
+      date: '2020-07-18',
+      copyright: 'Tom Masterson'
     },
+    today: false,
+    // APOD
     apodResult: null,
+    // ROVER
     roverSearch: {
       sol: null,
       camera: ''
@@ -67,9 +75,10 @@ export default new Vuex.Store({
       let counter = state.counter.find(x => x.name == p.camera.name)
       counter.total++
     },
-    SET_HOME_IMAGE(state, img){
-      state.homeImg = img
-    }
+    // Saves APOD for Home Page
+    SET_HOME_IMAGE(state, img){ state.homeImg = img },
+    // Sets today boolean
+    SET_TODAY(state, value){ state.today = value}
   },
   actions: {
     // Save user
@@ -90,6 +99,7 @@ export default new Vuex.Store({
         let data = accept.data
         if(data.media_type == 'image'){
           commit('SET_HOME_IMAGE', data)
+          commit('SET_TODAY', true)
         }
       })
     },

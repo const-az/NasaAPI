@@ -17,17 +17,19 @@
       </v-col>
       <v-col cols="12" md="8">
         <v-card flat>
+          <!-- Welcome message -->
           <div v-if="apodResult==null">
             <v-card-title>¡Descubre la imagen del día según la NASA!</v-card-title>
-            <v-card-subtitle>Haz doble click para elegir una fecha</v-card-subtitle>
+            <v-card-subtitle>Haz doble click en una fecha para seleccionarla.</v-card-subtitle>
           </div>
+          <!-- Search results -->
           <div v-else>
             <!-- If result includes a picture -->
             <v-img v-if="apodResult.media_type=='image'" :src="apodResult.url"></v-img>
             <!-- If result its a video -->
             <iframe v-else :src="apodResult.url"  width="640" height="360" frameborder="0"></iframe>
             <!-- Image data -->
-            <v-card-title class="">{{apodResult.title}}</v-card-title>
+            <v-card-title>{{apodResult.title}}</v-card-title>
             <v-card-subtitle>{{apodResult.copyright}} | {{apodResult.date}}</v-card-subtitle>
             <v-card-text>{{apodResult.explanation}}</v-card-text>
             <!-- Loading -->

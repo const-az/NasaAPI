@@ -9,8 +9,12 @@
         <p>Descubre las últimas imágenes de las expediciones de la NASA</p>
       </div>
     </v-img>
-    <v-footer absolute color="transparent" v-if="!!homeImg.title">
+    <!-- APOD Credits -->
+    <v-footer absolute color="transparent" v-if="today">
       <p class="ml-auto text-caption text-right white--text">Foto del día: <span class="font-weight-bold">{{homeImg.title}}</span> | {{homeImg.copyright}}</p>
+    </v-footer>
+    <v-footer absolute color="transparent" v-else>
+      <p class="ml-auto text-caption text-right white--text"><span class="font-weight-bold">{{homeImg.title}}</span> | {{homeImg.copyright}} | {{homeImg.date}}</p>
     </v-footer>
   </v-main>
 </template>
@@ -24,11 +28,10 @@ export default {
   components: {
     LoginForm
   },
-  computed: mapState(['homeImg', 'currentUser']),
+  computed: mapState(['homeImg', 'currentUser','today']),
   methods: mapActions(['getApod','getHomeImage']),
   created(){
     this.getHomeImage()
   }
-  
 }
 </script>

@@ -13,27 +13,18 @@
     <!-- Login card -->
     <v-card flat max-width="320" class="text-center rounded-lg mx-auto pa-2">
       <v-card-text>
+        <!-- Welcome message -->
         <p class="text-h4 text-md-h3 mb-0 font-weight-medium blue-grey--text text--darken-3">¡Bienvenido!</p>
         <p class="text-h6 text-md-h6 mb-2">Ingresa tus datos</p>
       </v-card-text>
       <!-- Log-in form -->
       <v-card-text>
         <v-form>
-          <v-text-field
-            color="blue-grey darken-3"
-            label="Correo electrónico"
-            prepend-icon="mdi-account"
-            v-model="credentials.email"
-          />
-          <v-text-field
-            color="blue-grey darken-3"
-            :type="showPassword ? 'text' : 'password'"
-            label="Contraseña"
-            prepend-icon="mdi-lock"
-            :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-            @click:append="showPassword = !showPassword"
-            v-model="credentials.password"
-          />
+          <!-- Email field -->
+          <v-text-field color="blue-grey darken-3" label="Correo electrónico" prepend-icon="mdi-account" v-model="credentials.email"/>
+          <!-- Password field -->
+          <v-text-field color="blue-grey darken-3" :type="showPassword ? 'text' : 'password'" label="Contraseña"
+            prepend-icon="mdi-lock" :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'" @click:append="showPassword = !showPassword" v-model="credentials.password"/>
         </v-form>
       </v-card-text>
       <!-- Send form -->

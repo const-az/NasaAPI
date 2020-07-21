@@ -88,14 +88,13 @@ export default new Vuex.Store({
       })
     },
     getHomeImage({commit}){
-      // Sets date to today
-      let today = new Date().toISOString().substr(0, 10)
-      axios.get(`${baseURL}/planetary/apod?${apiKey}&date=${today}`)
+      axios.get(`${baseURL}/planetary/apod?${apiKey}`)
       .then((accept) => {
         // Saves info into state only if data is a image
         let data = accept.data
         if(data.media_type == 'image'){
           commit('SET_HOME_IMAGE', data)
+          // Sets date to today
           commit('SET_TODAY', true)
         }
       })

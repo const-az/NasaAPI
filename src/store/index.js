@@ -88,15 +88,18 @@ export default new Vuex.Store({
       })
     },
     getHomeImage({commit}){
+      // Sets date to today
       axios.get(`${baseURL}/planetary/apod?${apiKey}`)
       .then((accept) => {
         // Saves info into state only if data is a image
         let data = accept.data
         if(data.media_type == 'image'){
           commit('SET_HOME_IMAGE', data)
-          // Sets date to today
           commit('SET_TODAY', true)
         }
+      })
+      .catch(() => {
+        commit('SET_TODAY', false)
       })
     },
     // Gets all plays from Firebase
@@ -108,6 +111,11 @@ export default new Vuex.Store({
         // Saves info into state and hide spinner
         let data = accept.data
         dispatch('setApodResult', data)
+        commit('HIDE_LOADING')
+      })
+      .catch(() => {
+        let error = { error: '¡Ups! La foto de hoy aún no se carga.'}
+        dispatch('setApodResult', error)
         commit('HIDE_LOADING')
       })
     },

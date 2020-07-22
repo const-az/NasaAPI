@@ -24,6 +24,7 @@
           </div>
           <!-- Search results -->
           <div v-else>
+            <v-card-title>{{apodResult.error}}</v-card-title>
             <!-- If result includes a picture -->
             <v-img v-if="apodResult.media_type=='image'" :src="apodResult.url"></v-img>
             <!-- If result its a video -->
@@ -49,12 +50,10 @@ import { mapActions, mapState } from 'vuex'
 export default {
   data: () => ({
     date: new Date().toISOString().substr(0, 10),
-    done: [false, false, false],
     today: ''
   }),
   methods: {
     setDate(date){
-      this.$set(this.done, 0, true)
       this.getApod(date)
     },
     ...mapActions(['getApod','setApodResult'])

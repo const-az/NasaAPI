@@ -4,14 +4,22 @@
     <p class="text-body-2">Selecciona el día y la cámara para tu búsqueda.</p>
     <v-container>
       <v-row class="align-center">
-        <v-col cols='12' md="5">
+        <!-- SOL field -->
+        <v-col cols='12' md="3">
           <v-text-field :rules="rules" :value="roverSearch.sol" @input="updateRoverSol" color="indigo darken-3" label="SOL" hint="Ingresa un valor numérico."></v-text-field>
         </v-col>
-        <v-col cols='12' md="5">
-          <v-select :value="roverSearch.camera" @input="updateRoverCamera" cols='12' md="6" v-model="select" :items="cameras" label="Cámaras" color="indigo darken-3"
+        <!-- Rover name field -->
+        <v-col cols='12' md="3">
+          <v-select :value="roverSearch.rover" @input="updateRoverName" cols='12' md="6" v-model="roverSelected" :items="rovers" label="Rover" color="indigo darken-3"
           ></v-select>
         </v-col>
-        <v-col cols="12" md="2">
+        <!-- Rover camera field -->
+        <v-col cols='12' md="3">
+          <v-select :value="roverSearch.camera" @input="updateRoverCamera" cols='12' md="6" v-model="cameraSelected" :items="cameras" label="Cámaras" color="indigo darken-3"
+          ></v-select>
+        </v-col>
+        <!-- Submit button -->
+        <v-col cols="12" md="3">
           <v-btn small depressed dark color="indigo darken-3" @click="searchRover">Buscar</v-btn>
         </v-col>
       </v-row>
@@ -35,7 +43,9 @@ import { mapState, mapActions } from 'vuex'
 export default {
   data: () => ({
     cameras: ['Todas','FHAZ','RHAZ','MAST','CHECKCAM','MAHLI','MARDI','NAVCAM','PANCAM','MINITES'],
-    select: null,
+    rovers: ['Curiosity', 'Spirit', 'Opportunity'],
+    cameraSelected: null,
+    roverSelected: null,
     rules: [
       v => !!v || '* Este campo es obligatorio',
       v => !isNaN(parseFloat(v)) || '* Debes ingresar un valor numérico'
@@ -49,14 +59,14 @@ export default {
   computed: mapState(['roverSearch']),
   methods: {
     searchRover(){
-      if(this.roverSearch.sol != null){
+      if(this.roverSearch.sol!=null && this.roverSearch.rover!=''){
         this.getRover()
       } else{
         this.alert.state = true
-        this.alert.text = "El campo SOL es obligatorio."
+        this.alert.text = "Los campo SOL y Rover son obligatorios."
       }
     },
-    ...mapActions(['updateRoverSol','updateRoverCamera','getRover'])
+    ...mapActions(['updateRoverSol','updateRoverCamera','updateRoverName','getRover'])
   }
 }
 </script>

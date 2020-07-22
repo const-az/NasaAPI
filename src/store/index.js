@@ -37,7 +37,8 @@ export default new Vuex.Store({
     // ROVER
     roverSearch: {
       sol: null,
-      camera: ''
+      camera: '',
+      rover: ''
     },
     roverResult: null,
     counter: []
@@ -58,6 +59,8 @@ export default new Vuex.Store({
     UPDATE_ROVER_SOL(state, sol){ state.roverSearch.sol = sol},
     // Sets Rover camera
     UPDATE_ROVER_CAMERA(state, camera){ state.roverSearch.camera = camera },
+    // Sets Rover camera
+    UPDATE_ROVER_NAME(state, rover){ state.roverSearch.rover = rover },
     // Saves data result in state
     SET_ROVER(state, rover){ state.roverResult = rover },
     // Resets counter
@@ -132,6 +135,11 @@ export default new Vuex.Store({
       }
       commit('UPDATE_ROVER_CAMERA', lowerCamera)
     },
+    //Set Rover name
+    updateRoverName({commit}, rover){
+      let lowerRover = rover.toLowerCase()
+      commit('UPDATE_ROVER_NAME', lowerRover)
+    },
     // Gets all plays from Firebase
     getRover({commit, dispatch, state}){
       // Displays loading spinner while getting items
@@ -141,7 +149,7 @@ export default new Vuex.Store({
       // Sets camera value depeding on content
       let camera = state.roverSearch.camera ? `&camera=${state.roverSearch.camera}` : ''
       // Gets pictures from Api
-      axios.get(`${baseURL}/mars-photos/api/v1/rovers/curiosity/photos?sol=${state.roverSearch.sol}${camera}&${apiKey}`)
+      axios.get(`${baseURL}/mars-photos/api/v1/rovers/${state.roverSearch.rover}/photos?sol=${state.roverSearch.sol}${camera}&${apiKey}`)
       .then((accept) => {
         // Saves info into state
         let data = accept.data.photos

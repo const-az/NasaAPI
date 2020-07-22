@@ -1,4 +1,5 @@
 # NASAapi
+Api calls and Vuetify.
 
 
 ## Project setup
@@ -16,15 +17,6 @@ mkdir config
 touch firebase.js
 ```
 Inside firebase.js, paste your own Firebase SDK snippet.
-
----
-
-3. Firebase functions folder
-
-```
-cd functions
-npm install
-```
 
 ---
 NPM commands

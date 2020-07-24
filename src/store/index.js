@@ -149,7 +149,7 @@ export default new Vuex.Store({
       // Sets camera value depeding on content
       let camera = state.roverSearch.camera ? `&camera=${state.roverSearch.camera}` : ''
       // Gets pictures from Api
-      axios.get(`${baseURL}/mars-photos/api/v1/rovers/${state.roverSearch.rover}/photos?sol=${state.roverSearch.sol}${camera}&${apiKey}`)
+      axios.get(`${baseURL}/mars-photos/api/v1/rovers/${state.roverSearch.rover}/photos?sol=${state.roverSearch.sol}${camera}&page=1&${apiKey}`)
       .then((accept) => {
         // Saves info into state
         let data = accept.data.photos

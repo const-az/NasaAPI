@@ -4,32 +4,26 @@
     <p class="text-body-2">Selecciona el día y la cámara para tu búsqueda.</p>
     <v-container>
       <v-row class="align-center">
-        <!-- SOL field -->
         <v-col cols='12' md="3">
-          <v-text-field :rules="rules" :value="roverSearch.sol" @input="updateRoverSol" color="indigo darken-3" label="SOL" hint="Ingresa un valor numérico."></v-text-field>
+          <v-text-field :rules="rules" :value="roverSearch.sol" @input="updateRoverSol" color="indigo darken-4" label="SOL" hint="Ingresa un valor numérico."></v-text-field>
         </v-col>
-        <!-- Rover name field -->
         <v-col cols='12' md="3">
-          <v-select :value="roverSearch.rover" @input="updateRoverName" cols='12' md="6" v-model="roverSelected" :items="rovers" label="Rover" color="indigo darken-3"
+          <v-select :value="roverSearch.rover" @input="updateRoverName" cols='12' md="6" v-model="roverSelected" :items="rovers" label="Rover" color="indigo darken-4"
           ></v-select>
         </v-col>
-        <!-- Rover camera field -->
         <v-col cols='12' md="3">
-          <v-select :value="roverSearch.camera" @input="updateRoverCamera" cols='12' md="6" v-model="cameraSelected" :items="cameras" label="Cámaras" color="indigo darken-3"
+          <v-select :value="roverSearch.camera" @input="updateRoverCamera" cols='12' md="6" v-model="cameraSelected" :items="cameras" label="Cámaras" color="indigo darken-4"
           ></v-select>
         </v-col>
-        <!-- Submit button -->
         <v-col cols="12" md="3">
-          <v-btn small depressed dark color="indigo darken-3" @click="searchRover">Buscar</v-btn>
+          <v-btn small depressed dark color="red" @click="searchRover">Buscar</v-btn>
         </v-col>
       </v-row>
     </v-container>
     <v-divider></v-divider>
-    <!-- Alert on errors -->
     <v-snackbar elevation="0" top color="red" v-model="alert.state" timeout="3000">
       {{ alert.text }}
       <template v-slot:action="{ attrs }">
-        <!-- To close alert -->
         <v-btn icon small color="white" v-bind="attrs" @click="alert.state = false">
           <v-icon>mdi-close</v-icon>
         </v-btn>
@@ -50,7 +44,6 @@ export default {
       v => !!v || '* Este campo es obligatorio',
       v => !isNaN(parseFloat(v)) || '* Debes ingresar un valor numérico'
     ],
-    // Alert
     alert: {
       text: "",
       state: false,
